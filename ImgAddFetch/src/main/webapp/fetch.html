@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body style="display:flex;">
+<style>
+
+     .download{
+    text-decoration: none;
+    color: white;
+    border: 0px;
+    padding: 12px;
+    background: black;
+    border-radius: 17px;
+}</style>
+   <script >
+   document.addEventListener("DOMContentLoaded", async()=>{
+	   var datas=await fetch("http://localhost:8080/ImgAddFetch/Fetch",{method:"POST"});
+       result= await datas.json();
+       console.log(result);
+       result.forEach(printimg);  
+   })
+           function printimg(result){
+		   console.log(result["name"]);
+		   console.log(result["path"]);
+		   const div = document.createElement("div");
+		   div.style.height="510px";
+		   div.style.width="30%";
+		   
+		   var img = document.createElement("img");
+		   img.src = result["path"];
+		   img.style.height="400px";
+		   img.style.width="90%";
+		   
+		   
+		   const h1 = document.createElement("h2");   	   
+    	   const textNode = document.createTextNode(result["name"]);
+    	   h1.appendChild(textNode);
+    	   	
+    	   var a = document.createElement('a');
+    	      a.setAttribute("href",result["path"]);
+    	      a.setAttribute("Download",result["name"]);
+    	      a.setAttribute("class","download")
+    	      a.innerText=("Download")
+    	      	 	
+    	   document.body.appendChild(div);
+    	   div.appendChild(img);
+    	   div.appendChild(h1);
+    	   div.appendChild(a);
+    	  
+	   }
+   
+   </script>
+</body>
+
+</html>
